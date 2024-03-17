@@ -1,0 +1,180 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String       @id @default(uuid())
+  email         String       @unique
+  username      String       @unique
+  name          String
+  password      String
+  created_at    DateTime     @default(now())
+  updated_at    DateTime?
+  spv           MasterArea[] @relation("spv")
+  sales         Area[]       @relation("sales")
+  sales_support Area[]       @relation("sales_support")
+}
+
+model Role {
+  id         String    @id @default(uuid())
+  name       String
+  created_at DateTime  @default(now())
+  updated_at DateTime?
+}
+
+model MasterArea {
+  id         String    @id @default(uuid())
+  name       String
+  spv        User?     @relation("spv", fields: [spv_id], references: [id])
+  spv_id     String?
+  Area       Area[]
+  created_at DateTime  @default(now())
+  updated_at DateTime?
+}
+
+model Area {
+  id               String      @id @default(uuid())
+  name             String
+  MasterArea       MasterArea? @relation(fields: [masterAreaId], references: [id])
+  masterAreaId     String?
+  sales            User?       @relation("sales", fields: [sales_id], references: [id])
+  sales_id         String?
+  sales_support    User?       @relation("sales_support", fields: [sales_support_id], references: [id])
+  sales_support_id String?
+  created_at       DateTime    @default(now())
+  updated_at       DateTime?
+  tr               Address[]   @relation("tr")
+  multi            Address[]   @relation("multi")
+}
+
+model Address {
+  id         String    @id @default(uuid())
+  name       String
+  tr         Area?     @relation("tr", fields: [tr_id], references: [id])
+  tr_id      String?
+  multi      Area?     @relation("multi", fields: [multi_id], references: [id])
+  multi_id   String?
+  created_at DateTime  @default(now())
+  updated_at DateTime?
+  store      Store[]
+}
+
+model Store {
+  id              String            @id @default(uuid())
+  name            String
+  lat             String?
+  long            String?
+  kode            String
+  password        String
+  top             Int?
+  Address         Address?          @relation(fields: [addressId], references: [id])
+  addressId       String?
+  full_address    String
+  created_at      DateTime          @default(now())
+  updated_at      DateTime?
+  ProductFavorite ProductFavorite[]
+  Transaction     Transaction[]
+  Cart            Cart[]
+}
+
+model ProductFavorite {
+  id         String    @id @default(uuid())
+  Store      Store?    @relation(fields: [storeId], references: [id])
+  storeId    String?
+  created_at DateTime  @default(now())
+  updated_at DateTime?
+  Product    Product?  @relation(fields: [productId], references: [id])
+  productId  String?
+}
+
+model Product {
+  id                 String               @id @default(uuid())
+  name               String
+  value              String
+  ProductFavorite    ProductFavorite[]
+  Brand              Brand?               @relation(fields: [brandId], references: [id])
+  brandId            String?
+  created_at         DateTime             @default(now())
+  updated_at         DateTime?
+  ProductPopularName ProductPopularName[]
+  TransactionDetail  TransactionDetail[]
+  CartDetail         CartDetail[]
+}
+
+model Brand {
+  id          String        @id @default(uuid())
+  name        String
+  color       String
+  value       String
+  Product     Product[]
+  Transaction Transaction[]
+  Cart        Cart[]
+  created_at  DateTime      @default(now())
+  updated_at  DateTime?
+}
+
+model ProductPopularName {
+  id         String    @id @default(uuid())
+  name       String
+  Product    Product?  @relation(fields: [productId], references: [id])
+  productId  String?
+  created_at DateTime  @default(now())
+  updated_at DateTime?
+}
+
+model Transaction {
+  id                String              @id @default(uuid())
+  order_no          String
+  processed_at      DateTime?
+  created_at        DateTime            @default(now())
+  updated_at        DateTime?
+  Store             Store?              @relation(fields: [storeId], references: [id])
+  storeId           String?
+  Brand             Brand?              @relation(fields: [brandId], references: [id])
+  brandId           String?
+  TransactionDetail TransactionDetail[]
+}
+
+model TransactionDetail {
+  id            String       @id @default(uuid())
+  qty           Int
+  Transaction   Transaction? @relation(fields: [transactionId], references: [id])
+  transactionId String?
+  Product       Product?     @relation(fields: [productId], references: [id])
+  productId     String?
+  created_at    DateTime     @default(now())
+  updated_at    DateTime?
+}
+
+model Cart {
+  id         String       @id @default(uuid())
+  Brand      Brand?       @relation(fields: [brandId], references: [id])
+  brandId    String?
+  Store      Store?       @relation(fields: [storeId], references: [id])
+  storeId    String?
+  created_at DateTime     @default(now())
+  updated_at DateTime?
+  CartDetail CartDetail[]
+}
+
+model CartDetail {
+  id         String    @id @default(uuid())
+  qty        Int
+  Cart       Cart?     @relation(fields: [cartId], references: [id])
+  cartId     String?
+  Product    Product?  @relation(fields: [productId], references: [id])
+  productId  String?
+  created_at DateTime  @default(now())
+  updated_at DateTime?
+}
