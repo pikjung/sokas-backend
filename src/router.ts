@@ -7,8 +7,11 @@ import userRoutes from "./routes/userRoutes";
 
 const router: Router = express.Router();
 
-router.use("/roles", roleRoutes);
-router.use("/users", userRoutes);
-router.use("/", authRoutes);
+// Admin
+router.use("/admin/roles", roleRoutes);
+router.use("/admin/users", userRoutes);
+router.use("/admin", authRoutes);
+
+// Client
 
 export default router;
