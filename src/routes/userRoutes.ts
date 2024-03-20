@@ -1,11 +1,12 @@
-import express, { Request, Response, Router } from "express";
-import getUsers from "../services/userServices";
+import express, { Router } from "express";
+import userController from "../controllers/userController";
+import { userValidator } from "../validators/userValidator";
 
 const router: Router = express.Router();
 
-router.get("/", async (req: Request, res: Response) => {
-  const getUser = await getUsers();
-  res.json(getUser);
-});
+router.get("/", userController.getAllusers);
+router.post("/", userValidator, userController.createUser)
+router.put("/:id", userValidator, userController.updateUser)
+router.delete("/:id", userController.deleteUser)
 
 export default router;
