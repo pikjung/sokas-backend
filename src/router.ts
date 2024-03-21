@@ -1,5 +1,8 @@
 import express, { Request, Response, Router } from "express";
 
+//middleware
+import { authenticateToken } from "./middleware/authMiddleware";
+
 // routes
 import roleRoutes from "./routes/roleRoutes";
 import authRoutes from "./routes/authRoutes";
