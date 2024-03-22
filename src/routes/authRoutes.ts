@@ -1,10 +1,11 @@
-import express, { Request, Response, Router } from 'express';
-import authController from '../controllers/authController';
-import { authValidator } from '../validators/authValidator';
+import express, { Router } from "express";
+import authController from "../controllers/authController";
+import { authValidator } from "../validators/authValidator";
 
 const router: Router = express.Router();
 
-router.post('/login', authValidator, authController.login)
-router.post('/logout', authValidator, authController.logout)
+router.post("/login", authValidator, authController.login);
+router.post("/logout", authValidator, authController.logout);
+router.post("/verify-token", authController.verifyToken);
 
-export default router 
+export default router;
