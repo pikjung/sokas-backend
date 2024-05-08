@@ -5,7 +5,7 @@ import { authValidator } from "../validators/authValidator";
 const router: Router = express.Router();
 
 router.post("/login", authValidator, authController.login);
-router.post("/logout", authValidator, authController.logout);
-router.post("/verify-token", authController.verifyToken);
+// router.post("/logout", authValidator, authController.logout);
+router.get("/verify-token", authController.verifyToken);
 
 export default router;

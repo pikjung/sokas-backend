@@ -1,7 +1,11 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
-import config from '../config';
 import responseJson from '../utils/responseJson';
+import { PrismaClient } from '@prisma/client';
+import userServices from '../services/userServices';
+import config from '../config';
+
+const prisma = new PrismaClient();
 
 declare global {
   namespace Express {
@@ -15,11 +19,9 @@ export const authenticateToken = (req: Request, res: Response, next: NextFunctio
   const token = req.headers['authorization']?.split(' ')[1];
   if (!token) return res.status(401).json(responseJson("error", {}, "Access Denied. Token is missing"));
 
-  try {
-    const decode = jwt.verify(token, config.jwtSecret)
-    req.user = decode
-    next()
-  } catch (error) {
-    return res.status(500).json(responseJson("error", {}, "Invalid token"))
-  }
+  jwt.verify(token, config.jwtSecret, (err, decoded) => {
+    if (err) return res.status(401).json({ error: 'Invalid token' });
+    req.user = decoded;
+    next();
+  });
 }

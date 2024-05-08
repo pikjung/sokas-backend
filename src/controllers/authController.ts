@@ -39,8 +39,6 @@ const authController = {
     res.status(200).json(responseJson("success", token, "berhasil login"));
   },
 
-  async logout(req: Request, res: Response) {},
-
   async verifyToken(req: Request, res: Response) {
     const token = req.headers["authorization"]?.split(" ")[1];
     if (!token)

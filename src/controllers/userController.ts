@@ -41,8 +41,15 @@ const userController = {
         return res.status(400).json({ errors: errors.array() });
       }
 
+      const specificUser = await userServices.getSpecificUser(req.params.id)
       const { name, username, email, password, roleId } = req.body;
-      const hashedPassword = await bcrypt.hash(password, 10)
+      let hashedPassword;
+
+      if (password === null) {
+        hashedPassword = specificUser?.password
+      } else {
+        hashedPassword = await bcrypt.hash(password, 10)
+      }
 
       const user = await userServices.updateUser(req.params.id, { username, name, email, password: hashedPassword, roleId, updated_at: new Date() })
       return res.status(200).json(responseJson("success", user, "User updated successfully"))

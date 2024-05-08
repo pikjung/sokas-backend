@@ -3,7 +3,10 @@ import { validationResult } from "express-validator";
 import roleService from "../services/roleServices";
 import responseJson from "../utils/responseJson";
 import generateId from "../utils/generateId";
+import userService from "../services/userServices";
+import { PrismaClient } from "@prisma/client";
 
+const prisma = new PrismaClient()
 
 const roleController = {
   async getAllRole(req: Request, res: Response) {
