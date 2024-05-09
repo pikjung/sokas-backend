@@ -1,23 +1,28 @@
 import { PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient()
+const prisma = new PrismaClient();
 
 const addressService = {
   getAllAddress() {
-    return prisma.address.findMany()
+    return prisma.address.findMany({
+      include: {
+        tr: true,
+        multi: true,
+      },
+    });
   },
 
   createAddress(data: any) {
-    return prisma.address.create({ data })
+    return prisma.address.create({ data });
   },
 
   updateAddress(id: string, data: any) {
-    return prisma.address.update({ where: { id }, data })
+    return prisma.address.update({ where: { id }, data });
   },
 
   deleteAddress(id: string) {
-    return prisma.address.delete({ where: { id } })
-  }
-}
+    return prisma.address.delete({ where: { id } });
+  },
+};
 
-export default addressService
+export default addressService;
