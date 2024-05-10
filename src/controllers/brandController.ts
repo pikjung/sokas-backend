@@ -38,7 +38,7 @@ const brandController = {
       }
 
       const { name, color, value } = req.body
-      const brand = await brandServices.updateBrand(req.params.id, { name, color, value })
+      const brand = await brandServices.updateBrand(req.params.id, { name, color, value, updated_at: new Date() })
       return res.status(200).json(responseJson("success", brand, "brand updated successfully"))
     } catch (error) {
       return res.status(500).json(responseJson("error", error, "error updating brand"))

@@ -11,6 +11,14 @@ const storeServices = {
     })
   },
 
+  getSpesificStore(id: string) {
+    return prisma.store.findUnique({
+      where: {
+        id: id
+      }
+    })
+  },
+
   createStore(data: any) {
     return prisma.store.create({ data })
   },

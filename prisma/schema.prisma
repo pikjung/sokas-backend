@@ -76,11 +76,11 @@ model Address {
 model Store {
   id              String            @id @default(uuid())
   name            String
-  lat             String?
-  long            String?
+  latitude        String?
+  longitude       String?
   kode            String
   password        String
-  top             Int?
+  term_of_payment Int?
   Address         Address?          @relation(fields: [addressId], references: [id])
   addressId       String?
   full_address    String
