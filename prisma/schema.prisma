@@ -78,9 +78,10 @@ model Store {
   name            String
   latitude        String?
   longitude       String?
-  kode            String
+  kode            String            @unique
   password        String
   term_of_payment Int?
+  no_telp         String?
   Address         Address?          @relation(fields: [addressId], references: [id])
   addressId       String?
   full_address    String
@@ -112,7 +113,7 @@ model Product {
   updated_at         DateTime?
   ProductPopularName ProductPopularName[]
   TransactionDetail  TransactionDetail[]
-  CartDetail         CartDetail[]
+  Cart               Cart[]
 }
 
 model Brand {
@@ -122,7 +123,6 @@ model Brand {
   value       String
   Product     Product[]
   Transaction Transaction[]
-  Cart        Cart[]
   created_at  DateTime      @default(now())
   updated_at  DateTime?
 }
@@ -161,23 +161,12 @@ model TransactionDetail {
 }
 
 model Cart {
-  id         String       @id @default(uuid())
-  Brand      Brand?       @relation(fields: [brandId], references: [id])
-  brandId    String?
-  Store      Store?       @relation(fields: [storeId], references: [id])
-  storeId    String?
-  created_at DateTime     @default(now())
-  updated_at DateTime?
-  CartDetail CartDetail[]
-}
-
-model CartDetail {
   id         String    @id @default(uuid())
-  qty        Int
-  Cart       Cart?     @relation(fields: [cartId], references: [id])
-  cartId     String?
+  Store      Store?    @relation(fields: [storeId], references: [id])
+  storeId    String?
   Product    Product?  @relation(fields: [productId], references: [id])
   productId  String?
+  qty        Int
   created_at DateTime  @default(now())
   updated_at DateTime?
 }

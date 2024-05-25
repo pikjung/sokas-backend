@@ -4,12 +4,14 @@ import storeController from '../controllers/storeController';
 
 import { authenticateToken } from '../middleware/authMiddleware';
 import { checkRole } from '../middleware/roleMiddleware';
+import { storeEditValidator } from '../validators/storeEditValidator';
 
 const router: Router = express.Router();
 
 router.get('/', [authenticateToken, checkRole], storeController.getAllStore)
 router.post('/', [authenticateToken, checkRole], storeValidator, storeController.createStore)
-router.put('/:id', [authenticateToken, checkRole], storeValidator, storeController.updateStore)
+router.put('/:id', [authenticateToken, checkRole], storeEditValidator, storeController.updateStore)
 router.delete('/:id', [authenticateToken, checkRole], storeController.deleteStore)
+router.post('/upload', [authenticateToken, checkRole], storeController.fileUpload)
 
 export default router

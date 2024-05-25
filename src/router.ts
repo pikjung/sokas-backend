@@ -3,7 +3,7 @@ import express, { Request, Response, Router } from "express";
 //middleware
 import { authenticateToken } from "./middleware/authMiddleware";
 
-// routes
+// admin routes
 import roleRoutes from "./routes/roleRoutes";
 import authRoutes from "./routes/authRoutes";
 import userRoutes from "./routes/userRoutes";
@@ -13,6 +13,10 @@ import productRoutes from "./routes/productRoutes";
 import brandRoutes from "./routes/brandRoutes";
 import storeRoutes from "./routes/storeRoutes";
 import addressRoutes from "./routes/addressRoutes";
+
+//customer routes
+import orderRoutes from "./routes/customerRoutes/orderRoutes";
+import authCustomerRoutes from "./routes/customerRoutes/authCustomerRoutes"
 
 const router: Router = express.Router();
 
@@ -27,6 +31,8 @@ router.use("/admin", authRoutes);
 router.use("/admin/store", storeRoutes)
 router.use("/admin/address", addressRoutes);
 
-// Client
+// Customer
+router.use('/order', orderRoutes)
+router.use("/", authCustomerRoutes)
 
 export default router;

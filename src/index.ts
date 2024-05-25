@@ -3,7 +3,7 @@ import createHttpError from "http-errors";
 import cors from "cors";
 
 const corsOptions: cors.CorsOptions = {
-  origin: 'http://localhost:3000', // Sesuaikan dengan URL frontend Next.js Anda
+  origin: '*', // Sesuaikan dengan URL frontend Next.js Anda
   credentials: true, // Izinkan cookies dan header lain yang diperlukan
 };
 
