@@ -3,7 +3,7 @@ import createHttpError from "http-errors";
 import cors from "cors";
 
 const corsOptions: cors.CorsOptions = {
-  origin: '*', // Sesuaikan dengan URL frontend Next.js Anda
+  origin: true, // Sesuaikan dengan URL frontend Next.js Anda
   credentials: true, // Izinkan cookies dan header lain yang diperlukan
 };
 
@@ -24,6 +24,6 @@ app.use((req: Request, res: Response, next: Function) => {
   next(createHttpError(404))
 })
 
-app.listen(8000, () => {
+app.listen(8000, '0.0.0.0', () => {
   console.log(`⚡️[server]: Server is running at https://localhost:8000`)
 })

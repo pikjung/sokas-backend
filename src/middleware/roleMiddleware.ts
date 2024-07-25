@@ -6,7 +6,7 @@ export const checkRole = async (req: Request, res: Response, next: NextFunction)
   if (!user) return res.status(401).json({ error: 'User not found' });
 
   // Memeriksa apakah pengguna memiliki peran yang diperlukan
-  if (user.Role && user.Role.name === 'Sales Support') {
+  if (user.Role && user.Role.name === 'admin') {
     next();
   } else {
     res.status(403).json({ error: 'Unauthorized' });

@@ -14,18 +14,20 @@ datasource db {
 }
 
 model User {
-  id            String       @id @default(uuid())
-  email         String       @unique
-  username      String       @unique
+  id            String        @id @default(uuid())
+  email         String        @unique
+  username      String        @unique
   name          String
   password      String
-  created_at    DateTime     @default(now())
+  created_at    DateTime      @default(now())
   updated_at    DateTime?
-  spv           MasterArea[] @relation("spv")
-  sales         Area[]       @relation("sales")
-  sales_support Area[]       @relation("sales_support")
-  Role          Role?        @relation(fields: [roleId], references: [id])
+  spv           MasterArea[]  @relation("spv")
+  sales         Area[]        @relation("sales")
+  sales_support Area[]        @relation("sales_support")
+  Role          Role?         @relation(fields: [roleId], references: [id])
   roleId        String?
+  Transaction   Transaction[]
+  sales_cart    Cart[]        @relation("sales")
 }
 
 model Role {
@@ -146,12 +148,19 @@ model Transaction {
   storeId           String?
   Brand             Brand?              @relation(fields: [brandId], references: [id])
   brandId           String?
+  created_by        String?
+  isSales           String              @default("N")
+  User              User?               @relation(fields: [userId], references: [id])
+  userId            String?
+  isCancel          String              @default("N")
+  noted             String?
   TransactionDetail TransactionDetail[]
 }
 
 model TransactionDetail {
   id            String       @id @default(uuid())
   qty           Int
+  discount      Int?
   Transaction   Transaction? @relation(fields: [transactionId], references: [id])
   transactionId String?
   Product       Product?     @relation(fields: [productId], references: [id])
@@ -166,7 +175,11 @@ model Cart {
   storeId    String?
   Product    Product?  @relation(fields: [productId], references: [id])
   productId  String?
+  isSales    String    @default("N")
   qty        Int
   created_at DateTime  @default(now())
   updated_at DateTime?
+  sales      User?     @relation("sales", fields: [sales_id], references: [id])
+  sales_id   String?
+  discount   Int       @default(0)
 }

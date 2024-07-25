@@ -45,6 +45,17 @@ const orderController = {
             )
           );
       }
+      if (req.body === undefined || req.body.length == 0) {
+        return res
+          .status(400)
+          .json(
+            responseJson(
+              "error",
+              null,
+              "Array tidak boleh kosong"
+            )
+          );
+      }
       const token = req.headers["authorization"]?.split(" ")[1] || null;
       const dataToko = token ? getUserIdFromToken(token) : null;
       const cart = await orderServices.addCart(req.body, dataToko?.user_id);
@@ -52,6 +63,7 @@ const orderController = {
         .status(200)
         .json(responseJson("success", cart, "add cart successfully"));
     } catch (error) {
+      console.error("Error adding cart:", error);
       return res
         .status(500)
         .json(responseJson("error", error, "add cart failed"));

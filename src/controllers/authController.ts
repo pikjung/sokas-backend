@@ -39,7 +39,7 @@ const authController = {
     const token = jwt.sign({ user_id: user.id, role: user.Role?.name }, config.jwtSecret, {
       expiresIn: "2h",
     });
-    res.status(200).json(responseJson("success", token, "berhasil login"));
+    res.status(200).json(responseJson("success", { token: token, role: user.Role?.name }, "berhasil login"));
   },
 
   async verifyToken(req: Request, res: Response) {

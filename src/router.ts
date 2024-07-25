@@ -17,6 +17,17 @@ import addressRoutes from "./routes/addressRoutes";
 //customer routes
 import orderRoutes from "./routes/customerRoutes/orderRoutes";
 import authCustomerRoutes from "./routes/customerRoutes/authCustomerRoutes"
+import keranjangRoutes from "./routes/customerRoutes/keranjangRoutes";
+import transaksiRoutes from "./routes/customerRoutes/transaksiRoutes"
+
+//sales routes
+import orderSalesRoutes from "./routes/salesRoutes/orderRoutes";
+import keranjangSalesRoutes from "./routes/salesRoutes/keranjangRoutes";
+import transaksiSalesRoutes from "./routes/salesRoutes/transaksiRoutes"
+
+//ssAdmin routes
+import transaksiSSAdminRoutes from "./routes/ssAdminRoutes/transaksiRoutes"
+import historySSAdminRoutes from "./routes/ssAdminRoutes/historyRoutes"
 
 const router: Router = express.Router();
 
@@ -34,5 +45,17 @@ router.use("/admin/address", addressRoutes);
 // Customer
 router.use('/order', orderRoutes)
 router.use("/", authCustomerRoutes)
+router.use("/cart", keranjangRoutes)
+router.use("/transaksi", transaksiRoutes)
+
+//sales
+router.use('/sales/order', orderSalesRoutes)
+router.use("/sales/cart", keranjangSalesRoutes)
+router.use("/sales/transaksi", transaksiSalesRoutes)
+
+//ssAdmin
+router.use("/ssAdmin/transaksi", transaksiSSAdminRoutes)
+router.use("/ssAdmin/history", historySSAdminRoutes)
+
 
 export default router;
