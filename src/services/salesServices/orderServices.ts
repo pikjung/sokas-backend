@@ -59,16 +59,18 @@ const orderServices = {
       },
       where: {
         Address: {
-          tr: {
-            sales_id: id,
-          },
           OR: [
+            {
+              tr: {
+                sales_id: id,
+              },
+            },
             {
               multi: {
                 sales_id: id,
-              }
-            }
-          ]
+              },
+            },
+          ],
         }
       }
     })
