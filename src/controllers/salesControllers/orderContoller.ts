@@ -41,28 +41,28 @@ const orderController = {
 
   async addCart(req: Request<{}, {}, CartRequestBody>, res: Response) {
     try {
-      if (!Array.isArray(req.body.cartData)) {
-        return res
-          .status(400)
-          .json(
-            responseJson(
-              "error",
-              null,
-              "Invalid request body, expected an array of cart items"
-            )
-          );
-      }
-      if (req.body.cartData === undefined || req.body.cartData.length == 0) {
-        return res
-          .status(400)
-          .json(
-            responseJson(
-              "error",
-              null,
-              "Array tidak boleh kosong"
-            )
-          );
-      }
+      // if (!Array.isArray(req.body.cartData)) {
+      //   return res
+      //     .status(400)
+      //     .json(
+      //       responseJson(
+      //         "error",
+      //         null,
+      //         "Invalid request body, expected an array of cart items"
+      //       )
+      //     );
+      // }
+      // if (req.body.cartData === undefined || req.body.cartData.length == 0) {
+      //   return res
+      //     .status(400)
+      //     .json(
+      //       responseJson(
+      //         "error",
+      //         null,
+      //         "Array tidak boleh kosong"
+      //       )
+      //     );
+      // }
       const { cartData, storeId } = req.body
       const token = req.headers["authorization"]?.split(" ")[1] || null;
       const dataToko = token ? getUserIdFromToken(token) : null;
