@@ -2,10 +2,10 @@ import express, { Request, Response } from "express";
 import createHttpError from "http-errors";
 import cors from "cors";
 
-const developmentCorsOptions: cors.CorsOptions = {
-  origin: true, // Sesuaikan dengan URL frontend Next.js Anda
-  credentials: true, // Izinkan cookies dan header lain yang diperlukan
-};
+// const developmentCorsOptions: cors.CorsOptions = {
+//   origin: true, // Sesuaikan dengan URL frontend Next.js Anda
+//   credentials: true, // Izinkan cookies dan header lain yang diperlukan
+// };
 
 const productionCorsOptions: cors.CorsOptions = {
   origin: 'https://so-kas.com',
@@ -14,14 +14,14 @@ const productionCorsOptions: cors.CorsOptions = {
   allowedHeaders: ['Content-Type', 'Authorization', 'Access-Control-Allow-Origin'],
 };
 
-const corsOptions = process.env.NODE_ENV === 'production' ? productionCorsOptions : developmentCorsOptions;
+// const corsOptions = process.env.NODE_ENV === 'production' ? productionCorsOptions : developmentCorsOptions;
 
 // router
 import mainRouter from "./router";
 
 const app = express();
 
-app.use(cors(corsOptions));
+app.use(cors(productionCorsOptions));
 
 app.use(express.json())
 
