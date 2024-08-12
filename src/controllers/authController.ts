@@ -36,7 +36,7 @@ const authController = {
         .status(401)
         .json(responseJson("error", {}, "Invalid Password"));
 
-    const token = jwt.sign({ user_id: user.id, role: user.Role?.name }, config.jwtSecret, {
+    const token = jwt.sign({ user_id: user.id, name: user.name, role: user.Role?.name }, config.jwtSecret, {
       expiresIn: "2h",
     });
     res.status(200).json(responseJson("success", { token: token, role: user.Role?.name }, "berhasil login"));

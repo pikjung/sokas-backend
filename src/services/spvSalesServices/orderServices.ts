@@ -38,7 +38,7 @@ const orderServices = {
             qty: Number(item.quantity),
             isSales: "Y",
             sales_id: sales_id,
-            discount: item.discount,
+            discount: item.discount
           },
         });
       });

@@ -150,7 +150,6 @@ const keranjangServices = {
               created_by: user_id,
               isSales: "Y",
               userId: user_id,
-              salesNote: item.salesNote
             },
           });
 
@@ -187,7 +186,7 @@ const keranjangServices = {
 
       try {
         await axios.post(url, {
-          chat_id: '-1002201031910',
+          chat_id: '-1002167373709',
           text: message,
           parse_mode: 'HTML'
         });

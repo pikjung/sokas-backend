@@ -48,6 +48,16 @@ const transaksiServices = {
   async getSpesificTransaksi(id: string, brandId: string) {
     try {
       // Menunggu hasil dari kedua query
+      const transaction = await prisma.transaction.findUnique({
+        select: {
+          salesNote: true
+        },
+        where: {
+          id: id
+        }
+      })
+
+
       const detail = await prisma.transactionDetail.findMany({
         where: {
           transactionId: id
@@ -63,11 +73,7 @@ const transaksiServices = {
         }
       });
 
-      // // Log hasil untuk debugging
-      // console.log('Detail:', detail);
-      // console.log('Product:', product);
-
-      return { detail, product };
+      return { transaction, detail, product };
     } catch (error) {
       // Tangani kesalahan jika ada
       console.error('Error fetching transaction details or products:', error);
@@ -103,7 +109,7 @@ const transaksiServices = {
             where: { id: detail.id },
             data: {
               qty: Number(detail.qty),
-              discount: Number(detail.discount),
+              discount: detail.discount,
             }
           }))
         }
