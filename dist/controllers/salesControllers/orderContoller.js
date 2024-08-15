@@ -50,16 +50,28 @@ const orderController = {
         var _a;
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                if (!Array.isArray(req.body.cartData)) {
-                    return res
-                        .status(400)
-                        .json((0, responseJson_1.default)("error", null, "Invalid request body, expected an array of cart items"));
-                }
-                if (req.body.cartData === undefined || req.body.cartData.length == 0) {
-                    return res
-                        .status(400)
-                        .json((0, responseJson_1.default)("error", null, "Array tidak boleh kosong"));
-                }
+                // if (!Array.isArray(req.body.cartData)) {
+                //   return res
+                //     .status(400)
+                //     .json(
+                //       responseJson(
+                //         "error",
+                //         null,
+                //         "Invalid request body, expected an array of cart items"
+                //       )
+                //     );
+                // }
+                // if (req.body.cartData === undefined || req.body.cartData.length == 0) {
+                //   return res
+                //     .status(400)
+                //     .json(
+                //       responseJson(
+                //         "error",
+                //         null,
+                //         "Array tidak boleh kosong"
+                //       )
+                //     );
+                // }
                 const { cartData, storeId } = req.body;
                 const token = ((_a = req.headers["authorization"]) === null || _a === void 0 ? void 0 : _a.split(" ")[1]) || null;
                 const dataToko = token ? (0, getUserId_1.getUserIdFromToken)(token) : null;

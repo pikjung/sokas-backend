@@ -3,6 +3,9 @@ import express, { Request, Response, Router } from "express";
 //middleware
 import { authenticateToken } from "./middleware/authMiddleware";
 
+//websocket
+import websocketRoutes from "./routes/webSocketRoutes"
+
 // admin routes
 import roleRoutes from "./routes/roleRoutes";
 import authRoutes from "./routes/authRoutes";
@@ -30,6 +33,9 @@ import transaksiSSAdminRoutes from "./routes/ssAdminRoutes/transaksiRoutes"
 import historySSAdminRoutes from "./routes/ssAdminRoutes/historyRoutes"
 
 const router: Router = express.Router();
+
+//WebSocket
+router.use("/send-notifications", websocketRoutes)
 
 // Admin
 router.use("/admin/roles", roleRoutes);
