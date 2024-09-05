@@ -155,6 +155,8 @@ model Transaction {
   isCancel          String              @default("N")
   noted             String?
   salesNote         String?
+  isPending         String              @default("N")
+  pending_note      String?
   TransactionDetail TransactionDetail[]
 }
 

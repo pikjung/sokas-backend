@@ -60,7 +60,8 @@ const transaksiServices = {
               { Store: { Address: { multi: { sales_support_id: user_id } } } }
             ]
           }
-        ]
+        ],
+        isPending: "N"
       },
       include: {
         Store: {
@@ -153,6 +154,59 @@ const transaksiServices = {
         }
       }
     });
+  },
+
+  pendingTransaksi(id: string, pendingNote: string) {
+    return prisma.transaction.update({
+      where: {
+        id: id
+      },
+      data: {
+        isPending: "Y",
+        pending_note: pendingNote,
+      }
+    })
+  },
+
+  getPendingTransaksi(user_id: string) {
+    return prisma.transaction.findMany({
+      where: {
+        processed_at: null,
+        OR: [
+          {
+            AND: [
+              { Brand: { name: 'Philips' } },
+              { Store: { Address: { tr: { sales_support_id: user_id } } } }
+            ]
+          },
+          {
+            AND: [
+              { Brand: { NOT: { name: 'Philips' } } },
+              { Store: { Address: { multi: { sales_support_id: user_id } } } }
+            ]
+          }
+        ],
+        isPending: "Y"
+      },
+      include: {
+        Store: {
+          include: {
+            Address: {
+              include: {
+                tr: true,
+                multi: true
+              }
+            }
+          }
+        },
+        Brand: true
+      },
+      orderBy: [
+        {
+          created_at: 'desc',
+        }
+      ]
+    })
   }
 }
 

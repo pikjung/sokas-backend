@@ -35,7 +35,7 @@ import historySSAdminRoutes from "./routes/ssAdminRoutes/historyRoutes"
 const router: Router = express.Router();
 
 //WebSocket
-router.use("/send-notifications", websocketRoutes)
+router.use("/", websocketRoutes)
 
 // Admin
 router.use("/admin/roles", roleRoutes);
