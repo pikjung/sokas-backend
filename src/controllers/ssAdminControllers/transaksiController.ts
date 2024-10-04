@@ -6,9 +6,8 @@ import { getUserIdFromToken } from "../../utils/getUserId";
 const transaksiController = {
   async getTransaksiBySS(req: Request, res: Response) {
     try {
-      const token = req.headers["authorization"]?.split(" ")[1] || null;
-      const user = token ? getUserIdFromToken(token) : null;
-      const transaksi = await transaksiServices.getTransaksiBySS(user?.user_id)
+      const userIdFromQuery = req.query.user_id as string;
+      const transaksi = await transaksiServices.getTransaksiBySS(userIdFromQuery)
       return res.status(200)
         .json(responseJson("success", transaksi, "get all transaksi by ssAdmin id"))
     } catch (error: any) {
@@ -79,7 +78,24 @@ const transaksiController = {
         .status(200)
         .json(responseJson("success", pending, "transaksi di pending"))
     } catch (error: any) {
+      return res
+        .status(500)
+        .json(responseJson("error", error, "pending transaksi failed"))
+    }
+  },
 
+  async getAllSSUsers(req: Request, res: Response) {
+    try {
+      const token = req.headers["authorization"]?.split(" ")[1] || null;
+      const user = token ? getUserIdFromToken(token) : null;
+      const ssUsers = await transaksiServices.getAllSSUsers(user?.user_id);
+      return res
+        .status(200)
+        .json(responseJson("success", ssUsers, "get all ss users successfully"))
+    } catch (error: any) {
+      return res
+        .status(500)
+        .json(responseJson("error", error, "get all ss users failed"))
     }
   }
 

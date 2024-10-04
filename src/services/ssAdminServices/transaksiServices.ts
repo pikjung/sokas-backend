@@ -207,6 +207,23 @@ const transaksiServices = {
         }
       ]
     })
+  },
+
+  getAllSSUsers(user_id: string) {
+    return prisma.user.findMany({
+      where: {
+        id: {
+          not: user_id
+        },
+        Role: {
+          name: 'ssAdmin'
+        }
+      },
+      select: {
+        name: true,
+        id: true
+      }
+    })
   }
 }
 

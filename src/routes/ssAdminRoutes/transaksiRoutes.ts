@@ -12,6 +12,7 @@ router.post('/cancel', [authenticateToken, checkSS], transaksiController.cancelT
 router.post('/confirm', [authenticateToken, checkSS], transaksiController.confirmTransaksi)
 router.post('/pending', [authenticateToken, checkSS], transaksiController.pendingTransaksi)
 router.get('/pending', [authenticateToken, checkSS], transaksiController.getTransaksiPending)
+router.get('/ssusers', [authenticateToken, checkSS], transaksiController.getAllSSUsers)
 // router.post('/', [authenticateToken, checkSS], transaksiController.addTransaksiBySS)
 
 export default router
