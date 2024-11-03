@@ -1,15 +1,15 @@
 import express, { Router } from 'express';
-import orderController from '../../controllers/salesControllers/orderContoller';
+import orderController from '../../controllers/spvSalesControllers/orderContoller';
 
 import { authenticateToken } from '../../middleware/authMiddleware';
-import { checkSales } from '../../middleware/salesMiddleware';
-import { orderValidator } from '../../validators/salesValidator/orderValidator';
+import { checkSpvSales } from '../../middleware/spvSalesMiddleware';
+import { orderValidator } from '../../validators/spvSalesValidator/orderValidator';
 
 const router: Router = express.Router();
 
-router.get('/brand', [authenticateToken, checkSales], orderController.getBrand)
-router.get('/product/:id', [authenticateToken, checkSales], orderController.getProduct)
-router.post('/cart', [authenticateToken, checkSales], orderValidator, orderController.addCart)
-router.get('/toko', [authenticateToken, checkSales], orderController.getToko)
+router.get('/brand', [authenticateToken, checkSpvSales], orderController.getBrand)
+router.get('/product/:id', [authenticateToken, checkSpvSales], orderController.getProduct)
+router.post('/cart', [authenticateToken, checkSpvSales], orderValidator, orderController.addCart)
+router.get('/toko', [authenticateToken, checkSpvSales], orderController.getToko)
 
 export default router

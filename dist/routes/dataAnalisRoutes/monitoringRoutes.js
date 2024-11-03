@@ -1,0 +1,20 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const monitoringControllers_1 = __importDefault(require("../../controllers/dataAnalisControllers/monitoringControllers"));
+const authMiddleware_1 = require("../../middleware/authMiddleware");
+const dataAnalisMiddleware_1 = require("../../middleware/dataAnalisMiddleware");
+const uploadMonitoringMiddleware_1 = __importDefault(require("../../middleware/uploadMonitoringMiddleware"));
+const router = express_1.default.Router();
+router.get('/', [authMiddleware_1.authenticateToken, dataAnalisMiddleware_1.checkDataAnalis], monitoringControllers_1.default.getMonitoring);
+router.get('/reporting/:id', [authMiddleware_1.authenticateToken, dataAnalisMiddleware_1.checkDataAnalis], monitoringControllers_1.default.reporting);
+router.get('/address', [authMiddleware_1.authenticateToken, dataAnalisMiddleware_1.checkDataAnalis], monitoringControllers_1.default.getAddress);
+router.post('/upload', [authMiddleware_1.authenticateToken, dataAnalisMiddleware_1.checkDataAnalis], uploadMonitoringMiddleware_1.default.single('file'), monitoringControllers_1.default.uploadMonitoring);
+router.delete('/:id', [authMiddleware_1.authenticateToken, dataAnalisMiddleware_1.checkDataAnalis], monitoringControllers_1.default.deleteMonitoring);
+router.get('/calculate/:id', [authMiddleware_1.authenticateToken, dataAnalisMiddleware_1.checkDataAnalis], monitoringControllers_1.default.calculateMonitoring);
+router.post('/inputAllBp', [authMiddleware_1.authenticateToken, dataAnalisMiddleware_1.checkDataAnalis], monitoringControllers_1.default.inputAllBp);
+router.get('/save/:id', [authMiddleware_1.authenticateToken, dataAnalisMiddleware_1.checkDataAnalis], monitoringControllers_1.default.saveMonitoring);
+exports.default = router;

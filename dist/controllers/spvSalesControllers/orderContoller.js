@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const orderServices_1 = __importDefault(require("../../services/salesServices/orderServices"));
+const orderServices_1 = __importDefault(require("../../services/spvSalesServices/orderServices"));
 const responseJson_1 = __importDefault(require("../../utils/responseJson"));
 const getUserId_1 = require("../../utils/getUserId");
 const orderController = {

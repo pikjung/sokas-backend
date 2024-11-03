@@ -22,8 +22,8 @@ const brandController = {
       }
 
       const id = generateUniqueId()
-      const { name, color, value } = req.body
-      const brand = await brandServices.createBrand({ id: id, name, color, value })
+      const { name, color, value, trx_organization } = req.body
+      const brand = await brandServices.createBrand({ id: id, name, color, value, trx_organization })
       return res.status(200).json(responseJson("success", brand, "brand created successfully"))
     } catch (error) {
       return res.status(500).json(responseJson("error", error, "error creating brand"))
@@ -37,10 +37,11 @@ const brandController = {
         return res.status(500).json({ errors: errors.array() })
       }
 
-      const { name, color, value } = req.body
-      const brand = await brandServices.updateBrand(req.params.id, { name, color, value, updated_at: new Date() })
+      const { name, color, value, trx_organization } = req.body
+      const brand = await brandServices.updateBrand(req.params.id, { name, color, value, trx_organization, updated_at: new Date() })
       return res.status(200).json(responseJson("success", brand, "brand updated successfully"))
     } catch (error) {
+      console.log(error)
       return res.status(500).json(responseJson("error", error, "error updating brand"))
     }
   },

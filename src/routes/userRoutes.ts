@@ -9,7 +9,7 @@ const router: Router = express.Router();
 
 router.get("/", [authenticateToken, checkRole], userController.getAllusers);
 router.post("/", [authenticateToken, checkRole], userValidator, userController.createUser)
-router.put("/:id", [authenticateToken, checkRole], userEditValidator, userController.updateUser)
+router.put("/:id", [authenticateToken, checkRole], userController.updateUser)
 router.delete("/:id", [authenticateToken, checkRole], userController.deleteUser)
 
 export default router;

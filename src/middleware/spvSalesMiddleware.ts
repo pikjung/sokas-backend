@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import userServices from '../services/userServices';
 
-export const checkSales = async (req: Request, res: Response, next: NextFunction) => {
+export const checkSpvSales = async (req: Request, res: Response, next: NextFunction) => {
   const user = await userServices.getSpecificUser(req.user.user_id);
   if (!user) return res.status(401).json({ error: 'User not found' });
 

@@ -28,6 +28,7 @@ model User {
   roleId        String?
   Transaction   Transaction[]
   sales_cart    Cart[]        @relation("sales")
+  Kules         Kules[]       @relation("kules")
 }
 
 model Role {
@@ -92,6 +93,7 @@ model Store {
   ProductFavorite ProductFavorite[]
   Transaction     Transaction[]
   Cart            Cart[]
+  Kules           Kules[]
 }
 
 model ProductFavorite {
@@ -119,14 +121,15 @@ model Product {
 }
 
 model Brand {
-  id          String        @id @default(uuid())
-  name        String
-  color       String
-  value       String
-  Product     Product[]
-  Transaction Transaction[]
-  created_at  DateTime      @default(now())
-  updated_at  DateTime?
+  id               String        @id @default(uuid())
+  name             String
+  color            String
+  value            String
+  trx_organization String?
+  Product          Product[]
+  Transaction      Transaction[]
+  created_at       DateTime      @default(now())
+  updated_at       DateTime?
 }
 
 model ProductPopularName {
@@ -185,4 +188,30 @@ model Cart {
   sales      User?     @relation("sales", fields: [sales_id], references: [id])
   sales_id   String?
   discount   String?
+}
+
+model Kules {
+  id         String    @id @default(uuid())
+  Store      Store?    @relation(fields: [storeId], references: [id])
+  storeId    String?
+  date_kules DateTime  @default(now())
+  created_at DateTime  @default(now())
+  updated_at DateTime?
+  Sales      User?     @relation("kules", fields: [sales_id], references: [id])
+  sales_id   String?
+  latitude   String
+  longitude  String
+  approval   String    @default("N")
+  note       String?
+  isnoo      Boolean?  @default(false)
+}
+
+model monitoringFIle {
+  id           String   @id @default(uuid())
+  name         String
+  filename     String
+  filepath     String
+  jsonfile     String?
+  jsonfilepath String?
+  createdAt    DateTime @default(now())
 }

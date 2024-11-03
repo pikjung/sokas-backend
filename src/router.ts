@@ -27,10 +27,20 @@ import transaksiRoutes from "./routes/customerRoutes/transaksiRoutes"
 import orderSalesRoutes from "./routes/salesRoutes/orderRoutes";
 import keranjangSalesRoutes from "./routes/salesRoutes/keranjangRoutes";
 import transaksiSalesRoutes from "./routes/salesRoutes/transaksiRoutes"
+import kulesRoutes from "./routes/salesRoutes/kulesRoutes"
 
 //ssAdmin routes
 import transaksiSSAdminRoutes from "./routes/ssAdminRoutes/transaksiRoutes"
 import historySSAdminRoutes from "./routes/ssAdminRoutes/historyRoutes"
+
+//spvSales router
+import orderspvSalesRoutes from "./routes/spvSalesRoutes/orderRoutes";
+import keranjangspvSalesRoutes from "./routes/spvSalesRoutes/keranjangRoutes";
+import transaksispvSalesRoutes from "./routes/spvSalesRoutes/transaksiRoutes"
+import kulesspvSalesRoutes from "./routes/spvSalesRoutes/kulesRoutes";
+
+//data analis router
+import monitoringDataAnalisRoutes from "./routes/dataAnalisRoutes/monitoringRoutes"
 
 const router: Router = express.Router();
 
@@ -58,10 +68,19 @@ router.use("/transaksi", transaksiRoutes)
 router.use('/sales/order', orderSalesRoutes)
 router.use("/sales/cart", keranjangSalesRoutes)
 router.use("/sales/transaksi", transaksiSalesRoutes)
+router.use("/sales/kules", kulesRoutes)
 
 //ssAdmin
 router.use("/ssAdmin/transaksi", transaksiSSAdminRoutes)
 router.use("/ssAdmin/history", historySSAdminRoutes)
 
+//spvSales
+router.use('/spvSales/order', orderspvSalesRoutes)
+router.use("/spvSales/cart", keranjangspvSalesRoutes)
+router.use("/spvSales/transaksi", transaksispvSalesRoutes)
+router.use("/spvSales/kules", kulesspvSalesRoutes)
+
+//dataAnalis
+router.use("/dataAnalis/monitoring", monitoringDataAnalisRoutes)
 
 export default router;

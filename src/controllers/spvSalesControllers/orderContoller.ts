@@ -1,4 +1,4 @@
-import orderServices from "../../services/salesServices/orderServices";
+import orderServices from "../../services/spvSalesServices/orderServices";
 import responseJson from "../../utils/responseJson";
 import { Request, Response } from "express";
 import { getUserIdFromToken } from "../../utils/getUserId";

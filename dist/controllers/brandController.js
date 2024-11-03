@@ -36,8 +36,8 @@ const brandController = {
                     return res.status(500).json({ errors: errors.array() });
                 }
                 const id = (0, generateId_1.default)();
-                const { name, color, value } = req.body;
-                const brand = yield brandServices_1.default.createBrand({ id: id, name, color, value });
+                const { name, color, value, trx_organization } = req.body;
+                const brand = yield brandServices_1.default.createBrand({ id: id, name, color, value, trx_organization });
                 return res.status(200).json((0, responseJson_1.default)("success", brand, "brand created successfully"));
             }
             catch (error) {
@@ -52,11 +52,12 @@ const brandController = {
                 if (!errors.isEmpty()) {
                     return res.status(500).json({ errors: errors.array() });
                 }
-                const { name, color, value } = req.body;
-                const brand = yield brandServices_1.default.updateBrand(req.params.id, { name, color, value, updated_at: new Date() });
+                const { name, color, value, trx_organization } = req.body;
+                const brand = yield brandServices_1.default.updateBrand(req.params.id, { name, color, value, trx_organization, updated_at: new Date() });
                 return res.status(200).json((0, responseJson_1.default)("success", brand, "brand updated successfully"));
             }
             catch (error) {
+                console.log(error);
                 return res.status(500).json((0, responseJson_1.default)("error", error, "error updating brand"));
             }
         });

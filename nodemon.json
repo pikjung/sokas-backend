@@ -1,5 +1,16 @@
 {
   "execMap": {
     "ts": "ts-node"
-  }
+  },
+  "ignore": [
+    "src/uploads/*",
+    "src/logs/*",
+    "*.log",
+    "node_modules/*"
+  ],
+  "watch": [
+    "src"
+  ],
+  "ext": "ts js json",
+  "delay": "1000"
 }

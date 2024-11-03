@@ -23,7 +23,7 @@ for (let i = 0; i < 2054; i++) {
 const csvContent = Array.from(ids).join('\n');
 
 // Menyimpan CSV ke file
-fs.writeFile('ids.csv', csvContent, 'utf8', (err) => {
+fs.writeFile('ids_1.csv', csvContent, 'utf8', (err) => {
   if (err) {
     console.error('Error menulis file:', err);
   } else {

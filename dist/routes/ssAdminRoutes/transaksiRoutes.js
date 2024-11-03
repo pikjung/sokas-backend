@@ -12,5 +12,8 @@ router.get('/', [authMiddleware_1.authenticateToken, ssAdminMiddleware_1.checkSS
 router.get('/:id/:brandId', [authMiddleware_1.authenticateToken, ssAdminMiddleware_1.checkSS], transaksiController_1.default.getSpesificTransaksi);
 router.post('/cancel', [authMiddleware_1.authenticateToken, ssAdminMiddleware_1.checkSS], transaksiController_1.default.cancelTransaksi);
 router.post('/confirm', [authMiddleware_1.authenticateToken, ssAdminMiddleware_1.checkSS], transaksiController_1.default.confirmTransaksi);
+router.post('/pending', [authMiddleware_1.authenticateToken, ssAdminMiddleware_1.checkSS], transaksiController_1.default.pendingTransaksi);
+router.get('/pending', [authMiddleware_1.authenticateToken, ssAdminMiddleware_1.checkSS], transaksiController_1.default.getTransaksiPending);
+router.get('/ssusers', [authMiddleware_1.authenticateToken, ssAdminMiddleware_1.checkSS], transaksiController_1.default.getAllSSUsers);
 // router.post('/', [authenticateToken, checkSS], transaksiController.addTransaksiBySS)
 exports.default = router;

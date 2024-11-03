@@ -17,14 +17,29 @@ const responseJson_1 = __importDefault(require("../../utils/responseJson"));
 const getUserId_1 = require("../../utils/getUserId");
 const transaksiController = {
     getTransaksiBySS(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const userIdFromQuery = req.query.user_id;
+                const transaksi = yield transaksiServices_1.default.getTransaksiBySS(userIdFromQuery);
+                return res.status(200)
+                    .json((0, responseJson_1.default)("success", transaksi, "get all transaksi by ssAdmin id"));
+            }
+            catch (error) {
+                return res
+                    .status(500)
+                    .json((0, responseJson_1.default)("error", error, "get all transaksi failed"));
+            }
+        });
+    },
+    getTransaksiPending(req, res) {
         var _a;
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const token = ((_a = req.headers["authorization"]) === null || _a === void 0 ? void 0 : _a.split(" ")[1]) || null;
                 const user = token ? (0, getUserId_1.getUserIdFromToken)(token) : null;
-                const transaksi = yield transaksiServices_1.default.getTransaksiBySS(user === null || user === void 0 ? void 0 : user.user_id);
+                const transaksi = yield transaksiServices_1.default.getPendingTransaksi(user === null || user === void 0 ? void 0 : user.user_id);
                 return res.status(200)
-                    .json((0, responseJson_1.default)("success", transaksi, "get all transaksi by ssAdmin id"));
+                    .json((0, responseJson_1.default)("success", transaksi, "get all transaksi pending by ssAdmin id"));
             }
             catch (error) {
                 return res
@@ -75,6 +90,40 @@ const transaksiController = {
                 return res
                     .status(500)
                     .json((0, responseJson_1.default)("error", error, "confirm transaksi failed"));
+            }
+        });
+    },
+    pendingTransaksi(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { id, pendingNote } = req.body;
+                const pending = yield transaksiServices_1.default.pendingTransaksi(id, pendingNote);
+                return res
+                    .status(200)
+                    .json((0, responseJson_1.default)("success", pending, "transaksi di pending"));
+            }
+            catch (error) {
+                return res
+                    .status(500)
+                    .json((0, responseJson_1.default)("error", error, "pending transaksi failed"));
+            }
+        });
+    },
+    getAllSSUsers(req, res) {
+        var _a;
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const token = ((_a = req.headers["authorization"]) === null || _a === void 0 ? void 0 : _a.split(" ")[1]) || null;
+                const user = token ? (0, getUserId_1.getUserIdFromToken)(token) : null;
+                const ssUsers = yield transaksiServices_1.default.getAllSSUsers(user === null || user === void 0 ? void 0 : user.user_id);
+                return res
+                    .status(200)
+                    .json((0, responseJson_1.default)("success", ssUsers, "get all ss users successfully"));
+            }
+            catch (error) {
+                return res
+                    .status(500)
+                    .json((0, responseJson_1.default)("error", error, "get all ss users failed"));
             }
         });
     }

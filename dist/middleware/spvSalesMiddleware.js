@@ -12,9 +12,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.checkSales = void 0;
+exports.checkSpvSales = void 0;
 const userServices_1 = __importDefault(require("../services/userServices"));
-const checkSales = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+const checkSpvSales = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const user = yield userServices_1.default.getSpecificUser(req.user.user_id);
     if (!user)
         return res.status(401).json({ error: 'User not found' });
@@ -26,4 +26,4 @@ const checkSales = (req, res, next) => __awaiter(void 0, void 0, void 0, functio
         res.status(403).json({ error: 'Unauthorized' });
     }
 });
-exports.checkSales = checkSales;
+exports.checkSpvSales = checkSpvSales;

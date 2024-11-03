@@ -62,12 +62,16 @@ const orderServices = {
           OR: [
             {
               tr: {
-                sales_id: id,
+                MasterArea: {
+                  spv_id: id
+                },
               },
             },
             {
               multi: {
-                sales_id: id,
+                MasterArea: {
+                  spv_id: id
+                },
               },
             },
           ],

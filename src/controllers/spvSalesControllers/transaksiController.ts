@@ -1,4 +1,4 @@
-import transaksiServices from "../../services/salesServices/transaksiServices";
+import transaksiServices from "../../services/spvSalesServices/transaksiServices";
 import responseJson from "../../utils/responseJson";
 import { Request, Response } from "express";
 import { getUserIdFromToken } from "../../utils/getUserId";

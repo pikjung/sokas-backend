@@ -186,7 +186,7 @@ const keranjangServices = {
 
       try {
         await axios.post(url, {
-          chat_id: '-1002167373709',
+          chat_id: '-1002201031910',
           text: message,
           parse_mode: 'HTML'
         });
